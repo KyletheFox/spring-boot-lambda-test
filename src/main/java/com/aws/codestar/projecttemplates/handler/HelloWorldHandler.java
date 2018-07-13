@@ -17,8 +17,6 @@ import com.aws.codestar.projecttemplates.GatewayResponse;
 public class HelloWorldHandler implements RequestHandler<Object, Object> {
 	
 	
-	RestTemplate restTemplate = new RestTemplate();
-	
 	static AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(
 			HelloWorldHandler.class.getPackage().getName());
 
@@ -29,6 +27,7 @@ public class HelloWorldHandler implements RequestHandler<Object, Object> {
     public Object handleRequest(final Object input, final Context context) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
+        RestTemplate restTemplate = new RestTemplate();
         System.out.println(restTemplate.toString());
         String joke = restTemplate.getForObject("https://api.chucknorris.io/jokes/random", String.class);
         return new GatewayResponse(joke, headers, 200);
