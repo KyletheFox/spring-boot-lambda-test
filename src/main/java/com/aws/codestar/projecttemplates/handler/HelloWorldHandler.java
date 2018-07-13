@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.client.RestTemplate;
 
 import com.amazonaws.services.lambda.runtime.Context;
@@ -17,6 +18,13 @@ public class HelloWorldHandler implements RequestHandler<Object, Object> {
 	
 	@Autowired
 	RestTemplate restTemplate;
+	
+	static AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(
+			HelloWorldHandler.class.getPackage().getName());
+
+	public HelloWorldHandler() {
+		 ctx.getAutowireCapableBeanFactory().autowireBean(this);
+	}
 
     public Object handleRequest(final Object input, final Context context) {
         Map<String, String> headers = new HashMap<>();
