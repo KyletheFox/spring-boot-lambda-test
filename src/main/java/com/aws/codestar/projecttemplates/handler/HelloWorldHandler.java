@@ -16,8 +16,8 @@ import com.aws.codestar.projecttemplates.GatewayResponse;
  */
 public class HelloWorldHandler implements RequestHandler<Object, Object> {
 	
-	@Autowired
-	RestTemplate restTemplate;
+	
+	RestTemplate restTemplate = new RestTemplate();
 	
 	static AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(
 			HelloWorldHandler.class.getPackage().getName());
